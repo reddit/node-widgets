@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["./tooltip.js"], factory);
 	else if(typeof exports === 'object')
-		exports["widgets.js"] = factory(require("./tooltip.js"));
+		exports["reducer.js"] = factory(require("./tooltip.js"));
 	else
-		root["widgets.js"] = factory(root["./tooltip.js"]);
+		root["reducer.js"] = factory(root["./tooltip.js"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -59,15 +59,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.tooltip = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _tooltip = __webpack_require__(1);
 
-	var tooltip = _interopRequireWildcard(_tooltip);
+	var DEFAULT = {
+	  tooltip: {
+	    id: null,
+	    target: null
+	  }
+	};
 
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? DEFAULT : arguments[0];
+	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-	exports.tooltip = tooltip;
+	  switch (action.type) {
+	    case _tooltip.TOGGLE_TOOLTIP:
+	      {
+	        var _payload = payload;
+	        var tooltipId = _payload.tooltipId;
+	        var target = _payload.target;
+
+
+	        return tooltipId && target ? _extends({}, state, {
+	          tooltip: {
+	            target: target,
+	            id: tooltipId
+	          }
+	        }) : _extends({}, state, {
+	          tooltip: {
+	            target: null,
+	            id: null
+	          }
+	        });
+	      }
+	    default:
+	      return state;
+	  }
+	};
 
 /***/ },
 /* 1 */

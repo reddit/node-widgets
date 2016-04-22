@@ -7,7 +7,7 @@
 		exports["tooltip.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
 	else
 		root["tooltip.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["lodash/object"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Target = exports.Tooltip = exports._Target = exports._Tooltip = exports.reducer = exports.toggleTooltip = exports.TOGGLE_TOOLTIP = undefined;
+	exports.Target = exports.Tooltip = exports._Target = exports._Tooltip = exports.toggleTooltip = exports.TOGGLE_TOOLTIP = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -67,15 +67,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(2);
+	var _reactRedux = __webpack_require__(3);
 
-	var _reselect = __webpack_require__(3);
+	var _reselect = __webpack_require__(4);
 
-	var _object = __webpack_require__(4);
+	var _object = __webpack_require__(5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -110,26 +110,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    type: TOGGLE_TOOLTIP,
 	    payload: { tooltipId: tooltipId, target: target }
 	  };
-	};
-
-	// ******* REDUCER
-	var reducer = exports.reducer = function reducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? { openedTooltip: null, target: null } : arguments[0];
-	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	  switch (action.type) {
-	    case TOGGLE_TOOLTIP:
-	      {
-	        var _payload = payload;
-	        var tooltipId = _payload.tooltipId;
-	        var target = _payload.target;
-
-
-	        return tooltipId && target ? { target: target, openedTooltip: tooltipId } : { openedTooltip: null, target: null };
-	      }
-	    default:
-	      return state;
-	  }
 	};
 
 	// ******* RAW COMPONENTS
@@ -277,9 +257,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onToggleTooltip: function onToggleTooltip() {}
 	};
 	var tooltipSelector = (0, _reselect.createSelector)(function (state) {
-	  return state.tooltip.openedTooltip;
+	  return state.widgets.openedTooltip;
 	}, function (state) {
-	  return state.tooltip.target;
+	  return state.widgets.target;
 	}, function (tooltipId, target) {
 	  return { tooltipId: tooltipId, target: target };
 	});
@@ -308,25 +288,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	Target.TYPE = TARGET_TYPES;
 
 /***/ },
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = require("react");
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = require("reselect");
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("lodash/object");
