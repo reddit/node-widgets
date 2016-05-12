@@ -14,7 +14,7 @@ You'll also need to install the peer dependencies. Ex:
 ### Tooltip
 First, plug in the reducer. Be sure that the reducer is named `widgets` in the store.
 ```es6
-import { reducer as widgets } from '@r/widgets/reducer';
+import widgets from '@r/widgets/reducer';
 import { combineReducers } from 'redux';
 
 const reducers = combineReducers({
@@ -26,18 +26,18 @@ const reducers = combineReducers({
 Create a tooltip and give it a target. Both the target and the tooltip must have the same id.
 ```es6
 import React from 'react';
-import { Tooltip } from '@r/widgets/tooltip';
+import { Tooltip, TooltipTarget } from '@r/widgets/tooltip';
 
 class Foo extends React.Component {
   render() {
     return (
       <div>
         <div>
-          <Target id='test tooltip'>Mouse over me!</Target>
+          <TooltipTarget id='test tooltip'>Mouse over me!</Target>
         </div>
         <Tooltip
           id='test tooltip'
-          alignment={Tooltip.ALIGN.ABOVE}
+          alignment={ Tooltip.ALIGN.ABOVE }
         >
           Hello!
         </Tooltip>
