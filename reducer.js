@@ -78,9 +78,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  switch (action.type) {
 	    case _tooltip.TOGGLE_TOOLTIP:
 	      {
-	        var _payload = payload;
-	        var tooltipId = _payload.tooltipId;
-	        var target = _payload.target;
+	        var _action$payload = action.payload;
+	        var tooltipId = _action$payload.tooltipId;
+	        var target = _action$payload.target;
 
 
 	        return tooltipId && target ? _extends({}, state, {
