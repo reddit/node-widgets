@@ -7,7 +7,7 @@
 		exports["tooltip.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
 	else
 		root["tooltip.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["lodash/object"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -69,11 +69,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(4);
+	var _reactRedux = __webpack_require__(3);
 
-	var _reselect = __webpack_require__(5);
+	var _reselect = __webpack_require__(4);
 
-	var _object = __webpack_require__(6);
+	var _object = __webpack_require__(5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -109,40 +109,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var getPositions = function getPositions(element, target, alignment, offset) {
-	  var offsetLeft = target.offsetLeft;
-	  var offsetTop = target.offsetTop;
-	  var clientWidth = target.clientWidth;
-	  var clientHeight = target.clientHeight;
-	  var outerWidth = target.outerWidth;
-
-	  var elementHeight = element.clientHeight;
+	  var elementHeight = element.offsetHeight;
 	  var elementWidth = element.offsetWidth;
 
-	  var top = offsetTop;
-	  var left = offsetLeft;
+	  var _target$getBoundingCl = target.getBoundingClientRect();
+
+	  var top = _target$getBoundingCl.top;
+	  var left = _target$getBoundingCl.left;
+	  var width = _target$getBoundingCl.width;
+	  var height = _target$getBoundingCl.height;
+
 	  var marginTop = null;
 	  var marginLeft = null;
 
 	  switch (alignment) {
 	    case TOOLTIP_ALIGNMENT.LEFT:
-	      top += clientHeight / 2;
+	      top += height / 2;
 	      top -= elementHeight / 2;
 	      marginLeft = -offset - elementWidth;
 	      break;
 	    case TOOLTIP_ALIGNMENT.RIGHT:
-	      top += clientHeight / 2;
+	      top += height / 2;
 	      top -= elementHeight / 2;
-	      left += clientWidth;
+	      left += width;
 	      marginLeft = offset;
 	      break;
 	    case TOOLTIP_ALIGNMENT.ABOVE:
-	      left += clientWidth / 2;
+	      left += width / 2;
 	      left -= elementWidth / 2;
 	      marginTop = -offset - elementHeight;
 	      break;
 	    case TOOLTIP_ALIGNMENT.BELOW:
-	      top += clientHeight;
-	      left += clientWidth / 2;
+	      top += height;
+	      left += width / 2;
 	      left -= elementWidth / 2;
 	      marginTop = offset;
 	      break;
@@ -443,20 +442,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = require("react");
 
 /***/ },
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = require("reselect");
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("lodash/object");
