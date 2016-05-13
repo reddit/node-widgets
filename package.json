@@ -1,6 +1,6 @@
 {
   "name": "@r/widgets",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A collection of React components and the Redux actions and reducers to accompany them",
   "main": "widgets.js",
   "scripts": {
