@@ -152,24 +152,77 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var positionTooltip = function positionTooltip(element, target, alignment, offset) {
 	  if (element) {
-	    var _getPositions = getPositions(element, target, alignment, offset);
+	    (function () {
+	      var realAlignment = alignment;
+	      var elementHeight = element.offsetHeight;
+	      var elementWidth = element.offsetWidth;
 
-	    var top = _getPositions.top;
-	    var left = _getPositions.left;
-	    var marginTop = _getPositions.marginTop;
-	    var marginLeft = _getPositions.marginLeft;
+	      // First, calculate if the current positioning will actually fit in the
+	      // browser window. if it wont, flip its alignment
+	      if (alignment === TOOLTIP_ALIGNMENT.ABOVE) {
+	        var _target$getBoundingCl2 = target.getBoundingClientRect();
+
+	        var _top = _target$getBoundingCl2.top;
+	        var height = _target$getBoundingCl2.height;
+
+	        if (_top - height - elementHeight < 0) {
+	          realAlignment = TOOLTIP_ALIGNMENT.BELOW;
+	        }
+	      } else if (alignment === TOOLTIP_ALIGNMENT.BELOW) {
+	        var _target$getBoundingCl3 = target.getBoundingClientRect();
+
+	        var _top2 = _target$getBoundingCl3.top;
+	        var _height = _target$getBoundingCl3.height;
+
+	        if (_top2 + _height + elementHeight > self.innerHeight) {
+	          realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	        }
+	      } else if (alignment === TOOLTIP_ALIGNMENT.LEFT) {
+	        var _target$getBoundingCl4 = target.getBoundingClientRect();
+
+	        var _left = _target$getBoundingCl4.left;
+	        var width = _target$getBoundingCl4.width;
+
+	        if (_left - width - elementWidth < 0) {
+	          realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	        }
+	      } else if (alignment === TOOLTIP_ALIGNMENT.RIGHT) {
+	        var _target$getBoundingCl5 = target.getBoundingClientRect();
+
+	        var _left2 = _target$getBoundingCl5.left;
+	        var _width = _target$getBoundingCl5.width;
+
+	        if (_left2 + _width + elementWidth > self.innerWidth) {
+	          realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	        }
+	      }
+
+	      // Next, position the tooltip
+
+	      var _getPositions = getPositions(element, target, realAlignment, offset);
+
+	      var top = _getPositions.top;
+	      var left = _getPositions.left;
+	      var marginTop = _getPositions.marginTop;
+	      var marginLeft = _getPositions.marginLeft;
 
 
-	    element.style.top = top;
-	    element.style.left = left;
-	    element.style.marginTop = marginTop;
-	    element.style.marginLeft = marginLeft;
+	      element.style.top = top;
+	      element.style.left = left;
+	      element.style.marginTop = marginTop;
+	      element.style.marginLeft = marginLeft;
 
-	    if ((alignment === TOOLTIP_ALIGNMENT.ABOVE || alignment === TOOLTIP_ALIGNMENT.BELOW) && (typeof self === 'undefined' ? 'undefined' : _typeof(self)) !== undefined && element.offsetWidth > self.innerWidth) {
-	      element.style.left = offset;
-	      element.style.right = offset;
-	      element.style.width = 'auto';
-	    }
+	      if ((realAlignment === TOOLTIP_ALIGNMENT.ABOVE || realAlignment === TOOLTIP_ALIGNMENT.BELOW) && (typeof self === 'undefined' ? 'undefined' : _typeof(self)) !== undefined && element.offsetWidth > self.innerWidth) {
+	        element.style.left = offset;
+	        element.style.right = offset;
+	        element.style.width = 'auto';
+	      }
+
+	      // Finnaly, position the arrow div within the tooltip
+	      Array.from(element.children).slice(0, 2).map(function (x, i) {
+	        return positionArrow(x, target, realAlignment, offset, !!i);
+	      });
+	    })();
 	  }
 	};
 
@@ -204,7 +257,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          element.style.borderBottomColor = 'inherit';
 	        }
 	      } else {
-	        element.style.top = top + size - 1;
+	        element.style.top = top - 1;
 	        element.style.borderTop = arrowBase;
 	        if (!inner) {
 	          element.style.borderTopColor = 'inherit';
@@ -223,7 +276,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          element.style.borderRightColor = 'inherit';
 	        }
 	      } else {
-	        element.style.left = left + size - 1;
+	        element.style.left = left - 1;
 	        element.style.borderLeft = arrowBase;
 	        if (!inner) {
 	          element.style.borderLeftColor = 'inherit';
@@ -266,6 +319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var className = _props.className;
 	      var onToggleTooltip = _props.onToggleTooltip;
 
+	      var realAlignment = alignment;
 
 	      if (show) {
 	        return _react2.default.createElement(
@@ -274,18 +328,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            className: className,
 	            style: STYLE,
 	            ref: function ref(x) {
-	              return positionTooltip(x, target, alignment, offset);
+	              realAlignment = positionTooltip(x, target, alignment, offset);
 	            },
 	            onClick: function onClick(e) {
 	              return e.stopPropagation();
 	            }
 	          },
-	          _react2.default.createElement('div', { ref: function ref(x) {
-	              return positionArrow(x, target, alignment, offset, false);
-	            } }),
-	          _react2.default.createElement('div', { ref: function ref(x) {
-	              return positionArrow(x, target, alignment, offset, true);
-	            } }),
+	          _react2.default.createElement('div', null),
+	          _react2.default.createElement('div', null),
 	          children
 	        );
 	      } else {
@@ -318,7 +368,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function _TooltipTarget() {
 	    var _Object$getPrototypeO;
 
-	    var _temp, _this2, _ret;
+	    var _temp, _this2, _ret2;
 
 	    _classCallCheck(this, _TooltipTarget);
 
@@ -326,12 +376,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_TooltipTarget)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.handleOpenTooltip = function (e) {
+	    return _ret2 = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_TooltipTarget)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.handleOpenTooltip = function (e) {
 	      e.stopPropagation();
 	      _this2.props.onToggleTooltip(e.currentTarget);
 	    }, _this2.handleCloseTooltip = function (e) {
 	      _this2.props.onToggleTooltip(null);
-	    }, _temp), _possibleConstructorReturn(_this2, _ret);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret2);
 	  }
 
 	  _createClass(_TooltipTarget, [{
@@ -352,7 +402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onClick: this.handleOpenTooltip
 	        };
 	      } else {
-	        var _ret2 = function () {
+	        var _ret3 = function () {
 	          var keepOpen = false;
 
 	          return {
@@ -369,7 +419,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          };
 	        }();
 
-	        if ((typeof _ret2 === 'undefined' ? 'undefined' : _typeof(_ret2)) === "object") return _ret2.v;
+	        if ((typeof _ret3 === 'undefined' ? 'undefined' : _typeof(_ret3)) === "object") return _ret3.v;
 	      }
 	    }
 	  }, {
