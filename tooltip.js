@@ -119,54 +119,63 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var width = _target$getBoundingCl.width;
 	  var height = _target$getBoundingCl.height;
 
-	  var marginTop = null;
-	  var marginLeft = null;
 
 	  switch (alignment) {
 	    case TOOLTIP_ALIGNMENT.LEFT:
 	      top += height / 2;
 	      top -= elementHeight / 2;
-	      marginLeft = -offset - elementWidth;
+	      left += -offset - elementWidth;
 	      break;
 	    case TOOLTIP_ALIGNMENT.RIGHT:
 	      top += height / 2;
 	      top -= elementHeight / 2;
-	      left += width;
-	      marginLeft = offset;
+	      left += width + offset;
 	      break;
 	    case TOOLTIP_ALIGNMENT.ABOVE:
+	      top += -offset - elementHeight;
 	      left += width / 2;
 	      left -= elementWidth / 2;
-	      marginTop = -offset - elementHeight;
 	      break;
 	    case TOOLTIP_ALIGNMENT.BELOW:
-	      top += height;
+	      top += height + offset;
 	      left += width / 2;
 	      left -= elementWidth / 2;
-	      marginTop = offset;
 	      break;
 	  }
 
-	  return { top: top, left: left, marginTop: marginTop, marginLeft: marginLeft };
+	  return { top: top, left: left };
 	};
 
 	var positionTooltip = function positionTooltip(element, target, alignment, offset) {
 	  if (element) {
-	    (function () {
+	    var _ret = function () {
+	      if (typeof self === 'undefined' || typeof self === 'null') {
+	        return {
+	          v: void 0
+	        };
+	      }
+
 	      var realAlignment = alignment;
 	      var elementHeight = element.offsetHeight;
 	      var elementWidth = element.offsetWidth;
 
 	      // First, calculate if the current positioning will actually fit in the
-	      // browser window. if it wont, flip its alignment
+	      // browser window. if it wont, flip its alignment if that will fit better
 	      if (alignment === TOOLTIP_ALIGNMENT.ABOVE) {
 	        var _target$getBoundingCl2 = target.getBoundingClientRect();
 
 	        var _top = _target$getBoundingCl2.top;
 	        var height = _target$getBoundingCl2.height;
 
+
 	        if (_top - height - elementHeight < 0) {
-	          realAlignment = TOOLTIP_ALIGNMENT.BELOW;
+	          if (_top + height + elementHeight < self.innerHeight) {
+	            // fits if flipped
+	            realAlignment = TOOLTIP_ALIGNMENT.BELOW;
+	          } else if (_top < self.innerHeight / 2) {
+	            // doesn't fit, but fits better
+	            realAlignment = TOOLTIP_ALIGNMENT.BELOW;
+	          }
 	        }
 	      } else if (alignment === TOOLTIP_ALIGNMENT.BELOW) {
 	        var _target$getBoundingCl3 = target.getBoundingClientRect();
@@ -174,8 +183,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _top2 = _target$getBoundingCl3.top;
 	        var _height = _target$getBoundingCl3.height;
 
+
 	        if (_top2 + _height + elementHeight > self.innerHeight) {
-	          realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	          if (_top2 - _height - elementHeight > 0) {
+	            // fits if flipped
+	            realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	          } else if (_top2 > self.innerHeight / 2) {
+	            // doesn't fit, but fits better
+	            realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	          }
 	        }
 	      } else if (alignment === TOOLTIP_ALIGNMENT.LEFT) {
 	        var _target$getBoundingCl4 = target.getBoundingClientRect();
@@ -183,8 +199,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _left = _target$getBoundingCl4.left;
 	        var width = _target$getBoundingCl4.width;
 
+
 	        if (_left - width - elementWidth < 0) {
-	          realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	          if (_left + width + elementWidth < self.innerWidth) {
+	            // fits if flipped
+	            realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	          } else if (_left < self.innerWidth / 2) {
+	            // doesn't fit, but fits better
+	            realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	          }
 	        }
 	      } else if (alignment === TOOLTIP_ALIGNMENT.RIGHT) {
 	        var _target$getBoundingCl5 = target.getBoundingClientRect();
@@ -192,8 +215,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var _left2 = _target$getBoundingCl5.left;
 	        var _width = _target$getBoundingCl5.width;
 
+
 	        if (_left2 + _width + elementWidth > self.innerWidth) {
-	          realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	          if (_left2 - _width - elementWidth > 0) {
+	            // fits if flipped
+	            realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	          } else if (_left2 > self.innerWidth / 2) {
+	            // doesn't fit, but fits better
+	            realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	          }
 	        }
 	      }
 
@@ -203,26 +233,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var top = _getPositions.top;
 	      var left = _getPositions.left;
-	      var marginTop = _getPositions.marginTop;
-	      var marginLeft = _getPositions.marginLeft;
 
+	      var heightLimit = self.innerHeight - offset;
+	      var widthLimit = self.innerWidth - offset;
 
-	      element.style.top = top;
-	      element.style.left = left;
-	      element.style.marginTop = marginTop;
-	      element.style.marginLeft = marginLeft;
-
-	      if ((realAlignment === TOOLTIP_ALIGNMENT.ABOVE || realAlignment === TOOLTIP_ALIGNMENT.BELOW) && (typeof self === 'undefined' ? 'undefined' : _typeof(self)) !== undefined && element.offsetWidth > self.innerWidth) {
-	        element.style.left = offset;
-	        element.style.right = offset;
-	        element.style.width = 'auto';
-	      }
+	      element.style.top = top > offset ? top : offset;
+	      element.style.bottom = top + elementHeight > heightLimit ? offset : null;
+	      element.style.height = top + elementHeight > heightLimit ? 'auto' : element.style.height;
+	      element.style.left = left > offset ? left : offset;
+	      element.style.right = left + elementWidth > widthLimit ? offset : null;
+	      element.style.width = left + elementWidth > widthLimit ? 'auto' : element.style.width;
 
 	      // Finnaly, position the arrow div within the tooltip
 	      Array.from(element.children).slice(0, 2).map(function (x, i) {
 	        return positionArrow(x, target, realAlignment, offset, !!i);
 	      });
-	    })();
+	    }();
+
+	    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	  }
 	};
 
@@ -336,7 +364,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          },
 	          _react2.default.createElement('div', null),
 	          _react2.default.createElement('div', null),
-	          children
+	          _react2.default.createElement(
+	            'div',
+	            { style: { width: '100%', height: '100%', overflowY: 'auto', overflowX: 'auto' } },
+	            children
+	          )
 	        );
 	      } else {
 	        return null;
