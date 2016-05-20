@@ -23,10 +23,10 @@ const reducers = combineReducers({
 });
 ```
 
-Create a tooltip and give it a target. Both the target and the tooltip must have the same id.
+Create a tooltip and give it a target. Both the target and the tooltip must have the same id. If you want to auto-close tooltips when the user clicks elsewhere on the page, include the `TooltipShutter`.
 ```es6
 import React from 'react';
-import { Tooltip, TooltipTarget } from '@r/widgets/tooltip';
+import { Tooltip, TooltipTarget, TooltipShutter } from '@r/widgets/tooltip';
 
 class Foo extends React.Component {
   render() {
@@ -41,6 +41,7 @@ class Foo extends React.Component {
         >
           Hello!
         </Tooltip>
+        <TooltipShutter/>
       </div>
     );
   }

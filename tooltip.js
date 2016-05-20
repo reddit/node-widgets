@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.TooltipTarget = exports.Tooltip = exports._TooltipTarget = exports._Tooltip = exports.toggleTooltip = exports.TOGGLE_TOOLTIP = undefined;
+	exports.TooltipShutter = exports.TooltipTarget = exports.Tooltip = exports._TooltipShutter = exports._TooltipTarget = exports._Tooltip = exports.toggleTooltip = exports.TOGGLE_TOOLTIP = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -410,6 +410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return _ret2 = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_TooltipTarget)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.handleOpenTooltip = function (e) {
 	      e.stopPropagation();
+	      e.nativeEvent.stopImmediatePropagation();
 	      _this2.props.onToggleTooltip(e.currentTarget);
 	    }, _this2.handleCloseTooltip = function (e) {
 	      _this2.props.onToggleTooltip(null);
@@ -480,9 +481,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _TooltipTarget;
 	}(_react2.default.Component);
 
-	// ******* CONNECTED COMPONENTS
-
-
 	_TooltipTarget.propTypes = {
 	  id: T.string.isRequired,
 	  type: T.oneOf((0, _object.values)(TARGET_TYPES)),
@@ -491,6 +489,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	_TooltipTarget.defaultProps = {
 	  type: TARGET_TYPES.HOVER,
 	  onToggleTooltip: function onToggleTooltip() {}
+	};
+
+	var _TooltipShutter = exports._TooltipShutter = function (_React$Component3) {
+	  _inherits(_TooltipShutter, _React$Component3);
+
+	  function _TooltipShutter() {
+	    var _Object$getPrototypeO2;
+
+	    var _temp2, _this4, _ret4;
+
+	    _classCallCheck(this, _TooltipShutter);
+
+	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	      args[_key2] = arguments[_key2];
+	    }
+
+	    return _ret4 = (_temp2 = (_this4 = _possibleConstructorReturn(this, (_Object$getPrototypeO2 = Object.getPrototypeOf(_TooltipShutter)).call.apply(_Object$getPrototypeO2, [this].concat(args))), _this4), _this4.handleClick = function (e) {
+	      if (_this4.props.tooltipId) {
+	        _this4.props.onToggleTooltip(null);
+	      }
+	    }, _temp2), _possibleConstructorReturn(_this4, _ret4);
+	  }
+
+	  _createClass(_TooltipShutter, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      document.addEventListener('click', this.handleClick);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      document.removeEventListener(this.handleClick);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return false;
+	    }
+	  }]);
+
+	  return _TooltipShutter;
+	}(_react2.default.Component);
+
+	// ******* CONNECTED COMPONENTS
+
+
+	_TooltipShutter.propTypes = {
+	  tooltipId: T.oneOfType([T.string, T.void]),
+	  onToggleTooltip: T.func.isRequired
 	};
 	var tooltipSelector = (0, _reselect.createSelector)(function (state, ownProps) {
 	  return state.widgets.tooltip.id === ownProps.id;
@@ -515,6 +562,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TooltipTarget = exports.TooltipTarget = (0, _reactRedux.connect)(null, targetDispatcher)(_TooltipTarget);
 
 	TooltipTarget.TYPE = TARGET_TYPES;
+
+	var watcherSelector = (0, _reselect.createSelector)(function (state) {
+	  return state.widgets.tooltip.id;
+	}, function (tooltipId) {
+	  return { tooltipId: tooltipId };
+	});
+
+	var TooltipShutter = exports.TooltipShutter = (0, _reactRedux.connect)(watcherSelector, targetDispatcher)(_TooltipShutter);
 
 /***/ },
 /* 1 */,
