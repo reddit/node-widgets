@@ -59,6 +59,7 @@ var compiler = webpack({
     'reselect': 'commonjs reselect',
     'lodash/object': 'commonjs lodash/object',
     'lodash/lang': 'commonjs lodash/lang',
+    'raf': 'commonjs raf',
   }, SUB_MODULE_EXTERNALS),
 });
 

@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("./tooltip.js"));
+		module.exports = factory(require("./tooltip.js"), require("./scroller.js"));
 	else if(typeof define === 'function' && define.amd)
-		define(["./tooltip.js"], factory);
+		define(["./tooltip.js", "./scroller.js"], factory);
 	else if(typeof exports === 'object')
-		exports["widgets.js"] = factory(require("./tooltip.js"));
+		exports["widgets.js"] = factory(require("./tooltip.js"), require("./scroller.js"));
 	else
-		root["widgets.js"] = factory(root["./tooltip.js"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+		root["widgets.js"] = factory(root["./tooltip.js"], root["./scroller.js"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -59,21 +59,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.tooltip = undefined;
+	exports.Scroller = exports.tooltip = undefined;
 
 	var _tooltip = __webpack_require__(1);
 
 	var tooltip = _interopRequireWildcard(_tooltip);
 
+	var _scroller = __webpack_require__(7);
+
+	var _scroller2 = _interopRequireDefault(_scroller);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	exports.tooltip = tooltip;
+	exports.Scroller = _scroller2.default;
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
 /***/ }
 /******/ ])

@@ -55,6 +55,54 @@ And that's it! Tooltip and Target also come with a few configuration options:
 0. `alignment`: One of `Tooltip.ALIGN.ABOVE`, `Tooltip.ALIGN.BELOW`, `Tooltip.ALIGN.LEFT`, `Tooltip.ALIGN.RIGHT`
 0. `offset`: Number of pixels the tooltip should be separated from the target when shown.
 
-**Target**
+**TooltipTarget**
 
-0. `type`: Indicates what kind of action will trigger the tooltip. One of `Target.TYPE.HOVER`, `Target.TYPE.CLICK`, or `Target.TYPE.BOTH`.
+0. `type`: Indicates what kind of action will trigger the tooltip. One of `TooltipTarget.TYPE.HOVER`, `TooltipTarget.TYPE.CLICK`, or `TooltipTarget.TYPE.BOTH`.
+
+### Scroller
+The `Scroller` semi-lazily renders items, keeping the DOM from being cluttered with a large number of elements. If the scroller is given an `id`, it will save its scroll position as well.
+
+It is highly recommended each `Scroller` instance is given a key. This ensures that each `Scroller` can operate independently of any other `Scroller`;
+
+Any `refs` on the children are overwritten by `Scroller`, so do not expect those to be maintained.
+
+Finally, each child in the `Scroller` MUST have a key.
+
+```es6
+  id:         <String> optional.
+              if provided, the Scroller will save the last scroll position
+
+  buffer:     <Number> optional.
+              adjusts the distance above and below the Scroller's viewport where
+              components will still be rendered.
+
+  loadMargin: <Number> optional.
+              adjusts the distance from the bottom of the Scroller where the
+              callback is fired
+
+  onLoadMore: <Function> optional.
+              called when the scroll position hits the `loadMargin`
+```
+
+Using the `Scroller`:
+```es6
+import React from react';
+import Scroller from '@r/widgets/scroller';
+
+class Foo extends React.Component {
+  render() {
+    return (
+      <div>
+        <Scroller
+          id='Foo-scroller'
+          key='unique-key'
+        >
+          { children.map(c => (
+            <div key={ c.id }>{ c.title }</div>
+          )) }
+        </Scroller>
+      </div>
+    );
+  }
+}
+```

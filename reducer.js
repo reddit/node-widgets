@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("./tooltip.js"));
+		module.exports = factory(require("./tooltip.js"), require("./scroller.js"));
 	else if(typeof define === 'function' && define.amd)
-		define(["./tooltip.js"], factory);
+		define(["./tooltip.js", "./scroller.js"], factory);
 	else if(typeof exports === 'object')
-		exports["reducer.js"] = factory(require("./tooltip.js"));
+		exports["reducer.js"] = factory(require("./tooltip.js"), require("./scroller.js"));
 	else
-		root["reducer.js"] = factory(root["./tooltip.js"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+		root["reducer.js"] = factory(root["./tooltip.js"], root["./scroller.js"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -64,11 +64,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _tooltip = __webpack_require__(1);
 
+	var _scroller = __webpack_require__(7);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var DEFAULT = {
 	  tooltip: {
 	    id: null,
 	    target: null
-	  }
+	  },
+	  savedScrollPositions: {}
 	};
 
 	exports.default = function () {
@@ -95,6 +100,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	        });
 	      }
+	    case _scroller.SAVE_SCROLL_POSITION:
+	      {
+	        var _action$payload2 = action.payload;
+	        var id = _action$payload2.id;
+	        var scrollPosition = _action$payload2.scrollPosition;
+
+
+	        return _extends({}, state, {
+	          savedScrollPositions: _extends({}, state.savedScrollPositions, _defineProperty({}, id, scrollPosition))
+	        });
+	      }
 	    default:
 	      return state;
 	  }
@@ -105,6 +121,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ },
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
 /***/ }
 /******/ ])
