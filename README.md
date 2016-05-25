@@ -86,7 +86,7 @@ Finally, each child in the `Scroller` MUST have a key.
 
 Using the `Scroller`:
 ```es6
-import React from react';
+import React from 'react';
 import Scroller from '@r/widgets/scroller';
 
 class Foo extends React.Component {
