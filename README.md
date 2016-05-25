@@ -73,7 +73,7 @@ Finally, each child in the `Scroller` MUST have a key.
               if provided, the Scroller will save the last scroll position
 
   buffer:     <Number> optional.
-              adjusts the distance above and below the Scroller's viewport where
+              adjusts the distance above and below the Scroller viewport where
               components will still be rendered.
 
   loadMargin: <Number> optional.
