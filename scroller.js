@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("raf"), require("react-redux"), require("reselect"));
+		module.exports = factory(require("react"), require("raf"), require("react-redux"), require("reselect"), require("lodash/function"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "raf", "react-redux", "reselect"], factory);
+		define(["react", "raf", "react-redux", "reselect", "lodash/function"], factory);
 	else if(typeof exports === 'object')
-		exports["scroller.js"] = factory(require("react"), require("raf"), require("react-redux"), require("reselect"));
+		exports["scroller.js"] = factory(require("react"), require("raf"), require("react-redux"), require("reselect"), require("lodash/function"));
 	else
-		root["scroller.js"] = factory(root["react"], root["raf"], root["react-redux"], root["reselect"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__) {
+		root["scroller.js"] = factory(root["react"], root["raf"], root["react-redux"], root["reselect"], root["lodash/function"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,17 +65,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(4);
-
-	var _reselect = __webpack_require__(5);
-
-	var _raf = __webpack_require__(3);
+	var _raf = __webpack_require__(4);
 
 	var _raf2 = _interopRequireDefault(_raf);
+
+	var _reactRedux = __webpack_require__(5);
+
+	var _reselect = __webpack_require__(6);
+
+	var _function = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97,10 +99,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  overflowY: 'auto'
 	};
 
-	var last = function last(arr) {
-	  return arr[arr.length - 1];
-	};
-
 	var Scroller = exports.Scroller = function (_React$Component) {
 	  _inherits(Scroller, _React$Component);
 
@@ -108,6 +106,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, Scroller);
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Scroller).call(this, props));
+
+	    _this._resetValues = function () {
+	      _this.setState({
+	        childrenToHide: {},
+	        childHeights: {},
+	        childPositions: {}
+	      });
+	    };
+
+	    _this.resetValues = (0, _function.debounce)(_this._resetValues, 250);
 
 	    _this.recordScrollPosition = function () {
 	      var _this$props = _this.props;
@@ -204,6 +212,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      self.addEventListener('resize', this.resetValues);
+	    }
+	  }, {
 	    key: 'shouldComponentUpdate',
 	    value: function shouldComponentUpdate(nextProps, nextState) {
 	      if (nextProps !== this.props) {
@@ -215,6 +228,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      this.recordScrollPosition();
+	      self.removeEventListener('resize', this.resetValues);
 	    }
 	  }, {
 	    key: 'render',
@@ -230,6 +244,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return !childrenToHide[child.key];
 	      });
 
+	      // mutate for faster perf
+	      var childrenProperties = [];
+	      var lastChildProperty = null;
+	      children.forEach(function (child) {
+	        if (childrenToHide[child.key]) {
+	          var height = childHeights[child.key];
+
+	          if (lastChildProperty && lastChildProperty.type === 'hidden') {
+	            lastChildProperty.height += height;
+	            lastChildProperty.key += '-' + child.key;
+	          } else {
+	            lastChildProperty = {
+	              height: height,
+	              key: 'hidden-' + child.key,
+	              type: 'hidden'
+	            };
+	            childrenProperties.push(lastChildProperty);
+	          }
+	        } else {
+	          lastChildProperty = { child: child, type: 'show' };
+	          childrenProperties.push(lastChildProperty);
+	        }
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        {
@@ -240,25 +278,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          children.reduce(function (existing, child) {
-	            if (childrenToHide[child.key]) {
-	              var height = childHeights[child.key];
-
-	              if (last(existing) && last(existing).type === 'hidden') {
-	                last(existing).height += height;
-	                last(existing).key += '-' + child.key;
-	                return existing;
-	              } else {
-	                return existing.concat([{
-	                  height: height,
-	                  key: 'hidden-' + child.key,
-	                  type: 'hidden'
-	                }]);
-	              }
-	            } else {
-	              return existing.concat([{ child: child, type: 'show' }]);
-	            }
-	          }, []).map(function (data) {
+	          childrenProperties.map(function (data) {
 	            if (data.type === 'hidden') {
 	              return _react2.default.createElement('div', {
 	                key: data.key,
@@ -323,28 +343,35 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("react");
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = require("raf");
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = require("reselect");
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("lodash/function");
 
 /***/ }
 /******/ ])
