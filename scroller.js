@@ -207,7 +207,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(Scroller, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps !== this.props) {
+	      // compare the keys of the children. if either the order or the number don't
+	      // match, this indicates that a potential 'loadMore' occured, so we need to
+	      // reset our flag.
+	      var currentChildren = this.props.children.map(function (c) {
+	        return c.key;
+	      }).join('.');
+	      var newChildren = nextProps.children.map(function (c) {
+	        return c.key;
+	      }).join('.');
+
+	      if (currentChildren !== newChildren) {
 	        this.firedLoadMore = false;
 	      }
 	    }
