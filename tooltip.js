@@ -7,7 +7,7 @@
 		exports["tooltip.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
 	else
 		root["tooltip.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["lodash/object"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_8__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,15 +65,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-	var _react = __webpack_require__(3);
+	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(2);
 
-	var _reselect = __webpack_require__(6);
+	var _reselect = __webpack_require__(3);
 
-	var _object = __webpack_require__(8);
+	var _object = __webpack_require__(9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -458,23 +458,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props2 = this.props;
-	      var inline = _props2.inline;
-	      var type = _props2.type;
-	      var children = _props2.children;
+	      var child = this.props.children;
 
 
-	      if (typeof children === 'array') {
-	        throw new Error('Tooltip target can only have one child');
-	      } else if (typeof children === 'string') {
-	        return _react2.default.createElement(
-	          'span',
-	          this.makeHandler(),
-	          children
-	        );
-	      } else {
-	        return _react2.default.cloneElement(children, this.makeHandler());
-	      }
+	      return typeof child === 'string' ? _react2.default.createElement(
+	        'span',
+	        this.makeHandler(),
+	        child
+	      ) : _react2.default.cloneElement(_react2.default.Children.only(child), this.makeHandler());
 	    }
 	  }]);
 
@@ -483,6 +474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_TooltipTarget.propTypes = {
 	  id: T.string.isRequired,
+	  children: T.oneOfType([T.string, T.element]).isRequired,
 	  type: T.oneOf((0, _object.values)(TARGET_TYPES)),
 	  onToggleTooltip: T.func
 	};
@@ -572,29 +564,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	var TooltipShutter = exports.TooltipShutter = (0, _reactRedux.connect)(watcherSelector, targetDispatcher)(_TooltipShutter);
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */
+/* 1 */
 /***/ function(module, exports) {
 
 	module.exports = require("react");
 
 /***/ },
-/* 4 */,
-/* 5 */
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 6 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("reselect");
 
 /***/ },
+/* 4 */,
+/* 5 */,
+/* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = require("lodash/object");

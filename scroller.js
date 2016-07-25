@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("raf"), require("react-redux"), require("reselect"), require("lodash/function"));
+		module.exports = factory(require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "raf", "react-redux", "reselect", "lodash/function"], factory);
+		define(["react", "react-redux", "reselect", "raf", "lodash/function"], factory);
 	else if(typeof exports === 'object')
-		exports["scroller.js"] = factory(require("react"), require("raf"), require("react-redux"), require("reselect"), require("lodash/function"));
+		exports["scroller.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
 	else
-		root["scroller.js"] = factory(root["react"], root["raf"], root["react-redux"], root["reselect"], root["lodash/function"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__) {
+		root["scroller.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["raf"], root["lodash/function"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -65,19 +65,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(3);
+	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _raf = __webpack_require__(4);
+	var _raf = __webpack_require__(7);
 
 	var _raf2 = _interopRequireDefault(_raf);
 
-	var _reactRedux = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(2);
 
-	var _reselect = __webpack_require__(6);
+	var _reselect = __webpack_require__(3);
 
-	var _function = __webpack_require__(7);
+	var _function = __webpack_require__(8);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -352,33 +352,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = (0, _reactRedux.connect)(selector, dispatcher)(Scroller);
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */
+/* 1 */
 /***/ function(module, exports) {
 
 	module.exports = require("react");
 
 /***/ },
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = require("raf");
-
-/***/ },
-/* 5 */
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 6 */
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = require("reselect");
 
 /***/ },
+/* 4 */,
+/* 5 */,
+/* 6 */,
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("raf");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = require("lodash/function");
