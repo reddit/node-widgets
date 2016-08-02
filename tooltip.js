@@ -362,8 +362,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	              return e.stopPropagation();
 	            }
 	          },
-	          _react2.default.createElement('div', null),
-	          _react2.default.createElement('div', null),
+	          _react2.default.createElement('div', { className: className + '__arrowBorder' }),
+	          _react2.default.createElement('div', { className: className + '__arrow' }),
 	          _react2.default.createElement(
 	            'div',
 	            { style: { width: '100%', height: '100%', overflowY: 'auto', overflowX: 'auto' } },
