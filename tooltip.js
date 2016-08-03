@@ -237,12 +237,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var heightLimit = self.innerHeight - offset;
 	      var widthLimit = self.innerWidth - offset;
 
-	      element.style.top = top > offset ? top : offset;
-	      element.style.bottom = top + elementHeight > heightLimit ? offset : null;
-	      element.style.height = top + elementHeight > heightLimit ? 'auto' : element.style.height;
-	      element.style.left = left > offset ? left : offset;
-	      element.style.right = left + elementWidth > widthLimit ? offset : null;
-	      element.style.width = left + elementWidth > widthLimit ? 'auto' : element.style.width;
+	      var newTop = top > offset ? top : offset;
+	      element.style.top = newTop;
+	      element.style.bottom = newTop + elementHeight > heightLimit ? offset : null;
+	      element.style.height = newTop + elementHeight > heightLimit ? 'auto' : element.style.height;
+
+	      var newLeft = left > offset ? left : offset;
+	      element.style.left = newLeft;
+	      element.style.right = newLeft + elementWidth > widthLimit ? offset : null;
+	      element.style.width = newLeft + elementWidth > widthLimit ? 'auto' : element.style.width;
 
 	      // Finnaly, position the arrow div within the tooltip
 	      Array.from(element.children).slice(0, 2).map(function (x, i) {
