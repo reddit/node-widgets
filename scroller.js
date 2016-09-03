@@ -105,7 +105,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Scroller(props) {
 	    _classCallCheck(this, Scroller);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Scroller).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Scroller.__proto__ || Object.getPrototypeOf(Scroller)).call(this, props));
 
 	    _this._resetValues = function () {
 	      _this.setState({
@@ -118,9 +118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.resetValues = (0, _function.debounce)(_this._resetValues, 250);
 
 	    _this.recordScrollPosition = function () {
-	      var _this$props = _this.props;
-	      var id = _this$props.id;
-	      var onSaveScrollPosition = _this$props.onSaveScrollPosition;
+	      var onSaveScrollPosition = _this.props.onSaveScrollPosition;
 	      var currentScrollPosition = _this.state.currentScrollPosition;
 
 	      onSaveScrollPosition(currentScrollPosition);
@@ -147,19 +145,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	          _this.setState({
-	            childHeights: _extends({}, _this.state.childHeights, _defineProperty({}, key, clientHeight)),
-	            childPositions: _extends({}, _this.state.childPositions, _defineProperty({}, key, offsetTop))
+	            childHeights: _extends({}, childHeights, _defineProperty({}, key, clientHeight)),
+	            childPositions: _extends({}, childPositions, _defineProperty({}, key, offsetTop))
 	          });
 	        }
 	      }
 	    };
 
 	    _this.handleScroll = function (e) {
-	      var _this$props2 = _this.props;
-	      var buffer = _this$props2.buffer;
-	      var loadMargin = _this$props2.loadMargin;
-	      var onLoadMore = _this$props2.onLoadMore;
-	      var children = _this$props2.children;
+	      var _this$props = _this.props;
+	      var buffer = _this$props.buffer;
+	      var loadMargin = _this$props.loadMargin;
+	      var onLoadMore = _this$props.onLoadMore;
 
 	      var scrollTop = e.currentTarget.scrollTop;
 	      var containerHeight = e.currentTarget.clientHeight;
@@ -250,11 +247,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var childrenToHide = _state.childrenToHide;
 	      var childHeights = _state.childHeights;
 
-	      var renderableChildren = children.filter(function (child) {
-	        return !childrenToHide[child.key];
-	      });
-
 	      // mutate for faster perf
+
 	      var childrenProperties = [];
 	      var lastChildProperty = null;
 	      children.forEach(function (child) {
@@ -294,15 +288,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                key: data.key,
 	                style: { height: data.height }
 	              });
-	            } else {
-	              return _react2.default.cloneElement(data.child, {
-	                ref: function ref(el) {
-	                  return (0, _raf2.default)(function () {
-	                    return _this2.setItem(el, data.child.key);
-	                  });
-	                }
-	              });
 	            }
+
+	            return _react2.default.cloneElement(data.child, {
+	              ref: function ref(el) {
+	                return (0, _raf2.default)(function () {
+	                  return _this2.setItem(el, data.child.key);
+	                });
+	              }
+	            });
 	          })
 	        )
 	      );
@@ -344,7 +338,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var dispatcher = function dispatcher(dispatch, ownProps) {
 	  return {
 	    onSaveScrollPosition: function onSaveScrollPosition(scrollPosition) {
-	      return ownProps.id && dispatch(saveScrollPosition(ownProps.id, scrollPosition));
+	      if (ownProps.id) {
+	        dispatch(saveScrollPosition(ownProps.id, scrollPosition));
+	      }
 	    }
 	  };
 	};
