@@ -107,38 +107,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(_Modal, _React$Component);
 
 	  function _Modal() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, _Modal);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_Modal).apply(this, arguments));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _Modal.__proto__ || Object.getPrototypeOf(_Modal)).call.apply(_ref, [this].concat(args))), _this), _this._onClick = function () {
+	      _this.props.onToggleModal(null);
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 
 	  _createClass(_Modal, [{
+	    key: '_stopPropagation',
+	    value: function _stopPropagation(e) {
+	      e.stopPropagation();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
 	      var className = _props.className;
 	      var show = _props.show;
 	      var children = _props.children;
-	      var onToggleModal = _props.onToggleModal;
 
 
-	      if (show) {
-	        return _react2.default.createElement(
-	          'div',
-	          { style: STYLE_CONTAINER, onClick: function onClick() {
-	              return onToggleModal(null);
-	            } },
-	          _react2.default.createElement(
-	            'div',
-	            { className: className, onClick: function onClick(e) {
-	                return e.stopPropagation();
-	              } },
-	            children
-	          )
-	        );
-	      } else {
+	      if (!show) {
 	        return null;
 	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { style: STYLE_CONTAINER, onClick: this._onClick },
+	        _react2.default.createElement(
+	          'div',
+	          { className: className, onClick: this._stopPropagation },
+	          children
+	        )
+	      );
 	    }
 	  }]);
 
@@ -162,7 +172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function _ModalTarget() {
 	    _classCallCheck(this, _ModalTarget);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_ModalTarget).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (_ModalTarget.__proto__ || Object.getPrototypeOf(_ModalTarget)).apply(this, arguments));
 	  }
 
 	  _createClass(_ModalTarget, [{
@@ -218,8 +228,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	};
 
-	var modalTargetDispatcher = function modalTargetDispatcher(dispatch, _ref) {
-	  var id = _ref.id;
+	var modalTargetDispatcher = function modalTargetDispatcher(dispatch, _ref2) {
+	  var id = _ref2.id;
 	  return {
 	    onToggleModal: function onToggleModal() {
 	      return dispatch(toggleModal(id));
