@@ -7,7 +7,7 @@
 		exports["widgets.js"] = factory(require("./tooltip.js"), require("./scroller.js"));
 	else
 		root["widgets.js"] = factory(root["./tooltip.js"], root["./scroller.js"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -61,11 +61,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.Scroller = exports.tooltip = undefined;
 
-	var _tooltip = __webpack_require__(4);
+	var _tooltip = __webpack_require__(5);
 
 	var tooltip = _interopRequireWildcard(_tooltip);
 
-	var _scroller = __webpack_require__(6);
+	var _scroller = __webpack_require__(7);
 
 	var _scroller2 = _interopRequireDefault(_scroller);
 
@@ -76,23 +76,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.tooltip = tooltip;
 	exports.Scroller = _scroller2.default;
 
-/***/ },
+/***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
-/***/ function(module, exports) {
+/* 4 */,
+/* 5 */
+/***/ (function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 
-/***/ },
-/* 5 */,
-/* 6 */
-/***/ function(module, exports) {
+/***/ }),
+/* 6 */,
+/* 7 */
+/***/ (function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

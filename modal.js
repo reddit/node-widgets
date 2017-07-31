@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-redux"), require("reselect"));
+		module.exports = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-redux", "reselect"], factory);
+		define(["prop-types", "react", "react-redux", "reselect"], factory);
 	else if(typeof exports === 'object')
-		exports["modal.js"] = factory(require("react"), require("react-redux"), require("reselect"));
+		exports["modal.js"] = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"));
 	else
-		root["modal.js"] = factory(root["react"], root["react-redux"], root["reselect"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+		root["modal.js"] = factory(root["prop-types"], root["react"], root["react-redux"], root["reselect"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -63,13 +63,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(1);
+	var _propTypes = __webpack_require__(1);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(2);
+	var _reactRedux = __webpack_require__(3);
 
-	var _reselect = __webpack_require__(3);
+	var _reselect = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var T = _react2.default.PropTypes;
+	var T = _propTypes2.default;
 
 	var STYLE_CONTAINER = {
 	  position: 'fixed',
@@ -109,17 +113,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function _Modal() {
 	    _classCallCheck(this, _Modal);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_Modal).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (_Modal.__proto__ || Object.getPrototypeOf(_Modal)).apply(this, arguments));
 	  }
 
 	  _createClass(_Modal, [{
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var className = _props.className;
-	      var show = _props.show;
-	      var children = _props.children;
-	      var onToggleModal = _props.onToggleModal;
+	      var _props = this.props,
+	          className = _props.className,
+	          show = _props.show,
+	          children = _props.children,
+	          onToggleModal = _props.onToggleModal;
 
 
 	      if (show) {
@@ -162,7 +166,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function _ModalTarget() {
 	    _classCallCheck(this, _ModalTarget);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_ModalTarget).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (_ModalTarget.__proto__ || Object.getPrototypeOf(_ModalTarget)).apply(this, arguments));
 	  }
 
 	  _createClass(_ModalTarget, [{
@@ -238,25 +242,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	  id: T.string.isRequired
 	};
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	module.exports = require("prop-types");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react");
 
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react-redux");
 
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
 
 	module.exports = require("reselect");
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
