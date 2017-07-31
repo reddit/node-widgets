@@ -60,6 +60,7 @@ var compiler = webpack({
     'lodash/object': 'commonjs lodash/object',
     'lodash/lang': 'commonjs lodash/lang',
     'lodash/function': 'commonjs lodash/function',
+    'prop-types': 'commonjs prop-types',
     'raf': 'commonjs raf',
   }, SUB_MODULE_EXTERNALS),
 });

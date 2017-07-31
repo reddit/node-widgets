@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
+		module.exports = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-redux", "reselect", "lodash/object"], factory);
+		define(["prop-types", "react", "react-redux", "reselect", "lodash/object"], factory);
 	else if(typeof exports === 'object')
-		exports["tooltip.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
+		exports["tooltip.js"] = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"), require("lodash/object"));
 	else
-		root["tooltip.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["lodash/object"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_9__) {
+		root["tooltip.js"] = factory(root["prop-types"], root["react"], root["react-redux"], root["reselect"], root["lodash/object"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_10__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -63,17 +63,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _propTypes = __webpack_require__(1);
 
-	var _react = __webpack_require__(1);
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(2);
+	var _reactRedux = __webpack_require__(3);
 
-	var _reselect = __webpack_require__(3);
+	var _reselect = __webpack_require__(4);
 
-	var _object = __webpack_require__(9);
+	var _object = __webpack_require__(10);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83,7 +85,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var T = _react2.default.PropTypes;
+	var T = _propTypes2.default;
 
 	var TOOLTIP_ALIGNMENT = {
 	  ABOVE: 'above',
@@ -112,13 +114,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var elementHeight = element.offsetHeight;
 	  var elementWidth = element.offsetWidth;
 
-	  var _target$getBoundingCl = target.getBoundingClientRect();
-
-	  var top = _target$getBoundingCl.top;
-	  var left = _target$getBoundingCl.left;
-	  var width = _target$getBoundingCl.width;
-	  var height = _target$getBoundingCl.height;
-
+	  var _target$getBoundingCl = target.getBoundingClientRect(),
+	      top = _target$getBoundingCl.top,
+	      left = _target$getBoundingCl.left,
+	      width = _target$getBoundingCl.width,
+	      height = _target$getBoundingCl.height;
 
 	  switch (alignment) {
 	    case TOOLTIP_ALIGNMENT.LEFT:
@@ -148,112 +148,97 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var positionTooltip = function positionTooltip(element, target, alignment, offset) {
 	  if (element) {
-	    var _ret = function () {
-	      if (typeof self === 'undefined' || typeof self === 'null') {
-	        return {
-	          v: void 0
-	        };
-	      }
+	    if (typeof self === 'undefined' || typeof self === 'null') {
+	      return;
+	    }
 
-	      var realAlignment = alignment;
-	      var elementHeight = element.offsetHeight;
-	      var elementWidth = element.offsetWidth;
+	    var realAlignment = alignment;
+	    var elementHeight = element.offsetHeight;
+	    var elementWidth = element.offsetWidth;
 
-	      // First, calculate if the current positioning will actually fit in the
-	      // browser window. if it wont, flip its alignment if that will fit better
-	      if (alignment === TOOLTIP_ALIGNMENT.ABOVE) {
-	        var _target$getBoundingCl2 = target.getBoundingClientRect();
+	    // First, calculate if the current positioning will actually fit in the
+	    // browser window. if it wont, flip its alignment if that will fit better
+	    if (alignment === TOOLTIP_ALIGNMENT.ABOVE) {
+	      var _target$getBoundingCl2 = target.getBoundingClientRect(),
+	          _top = _target$getBoundingCl2.top,
+	          height = _target$getBoundingCl2.height;
 
-	        var _top = _target$getBoundingCl2.top;
-	        var height = _target$getBoundingCl2.height;
-
-
-	        if (_top - height - elementHeight < 0) {
-	          if (_top + height + elementHeight < self.innerHeight) {
-	            // fits if flipped
-	            realAlignment = TOOLTIP_ALIGNMENT.BELOW;
-	          } else if (_top < self.innerHeight / 2) {
-	            // doesn't fit, but fits better
-	            realAlignment = TOOLTIP_ALIGNMENT.BELOW;
-	          }
-	        }
-	      } else if (alignment === TOOLTIP_ALIGNMENT.BELOW) {
-	        var _target$getBoundingCl3 = target.getBoundingClientRect();
-
-	        var _top2 = _target$getBoundingCl3.top;
-	        var _height = _target$getBoundingCl3.height;
-
-
-	        if (_top2 + _height + elementHeight > self.innerHeight) {
-	          if (_top2 - _height - elementHeight > 0) {
-	            // fits if flipped
-	            realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
-	          } else if (_top2 > self.innerHeight / 2) {
-	            // doesn't fit, but fits better
-	            realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
-	          }
-	        }
-	      } else if (alignment === TOOLTIP_ALIGNMENT.LEFT) {
-	        var _target$getBoundingCl4 = target.getBoundingClientRect();
-
-	        var _left = _target$getBoundingCl4.left;
-	        var width = _target$getBoundingCl4.width;
-
-
-	        if (_left - width - elementWidth < 0) {
-	          if (_left + width + elementWidth < self.innerWidth) {
-	            // fits if flipped
-	            realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
-	          } else if (_left < self.innerWidth / 2) {
-	            // doesn't fit, but fits better
-	            realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
-	          }
-	        }
-	      } else if (alignment === TOOLTIP_ALIGNMENT.RIGHT) {
-	        var _target$getBoundingCl5 = target.getBoundingClientRect();
-
-	        var _left2 = _target$getBoundingCl5.left;
-	        var _width = _target$getBoundingCl5.width;
-
-
-	        if (_left2 + _width + elementWidth > self.innerWidth) {
-	          if (_left2 - _width - elementWidth > 0) {
-	            // fits if flipped
-	            realAlignment = TOOLTIP_ALIGNMENT.LEFT;
-	          } else if (_left2 > self.innerWidth / 2) {
-	            // doesn't fit, but fits better
-	            realAlignment = TOOLTIP_ALIGNMENT.LEFT;
-	          }
+	      if (_top - height - elementHeight < 0) {
+	        if (_top + height + elementHeight < self.innerHeight) {
+	          // fits if flipped
+	          realAlignment = TOOLTIP_ALIGNMENT.BELOW;
+	        } else if (_top < self.innerHeight / 2) {
+	          // doesn't fit, but fits better
+	          realAlignment = TOOLTIP_ALIGNMENT.BELOW;
 	        }
 	      }
+	    } else if (alignment === TOOLTIP_ALIGNMENT.BELOW) {
+	      var _target$getBoundingCl3 = target.getBoundingClientRect(),
+	          _top2 = _target$getBoundingCl3.top,
+	          _height = _target$getBoundingCl3.height;
 
-	      // Next, position the tooltip
+	      if (_top2 + _height + elementHeight > self.innerHeight) {
+	        if (_top2 - _height - elementHeight > 0) {
+	          // fits if flipped
+	          realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	        } else if (_top2 > self.innerHeight / 2) {
+	          // doesn't fit, but fits better
+	          realAlignment = TOOLTIP_ALIGNMENT.ABOVE;
+	        }
+	      }
+	    } else if (alignment === TOOLTIP_ALIGNMENT.LEFT) {
+	      var _target$getBoundingCl4 = target.getBoundingClientRect(),
+	          _left = _target$getBoundingCl4.left,
+	          width = _target$getBoundingCl4.width;
 
-	      var _getPositions = getPositions(element, target, realAlignment, offset);
+	      if (_left - width - elementWidth < 0) {
+	        if (_left + width + elementWidth < self.innerWidth) {
+	          // fits if flipped
+	          realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	        } else if (_left < self.innerWidth / 2) {
+	          // doesn't fit, but fits better
+	          realAlignment = TOOLTIP_ALIGNMENT.RIGHT;
+	        }
+	      }
+	    } else if (alignment === TOOLTIP_ALIGNMENT.RIGHT) {
+	      var _target$getBoundingCl5 = target.getBoundingClientRect(),
+	          _left2 = _target$getBoundingCl5.left,
+	          _width = _target$getBoundingCl5.width;
 
-	      var top = _getPositions.top;
-	      var left = _getPositions.left;
+	      if (_left2 + _width + elementWidth > self.innerWidth) {
+	        if (_left2 - _width - elementWidth > 0) {
+	          // fits if flipped
+	          realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	        } else if (_left2 > self.innerWidth / 2) {
+	          // doesn't fit, but fits better
+	          realAlignment = TOOLTIP_ALIGNMENT.LEFT;
+	        }
+	      }
+	    }
 
-	      var heightLimit = self.innerHeight - offset;
-	      var widthLimit = self.innerWidth - offset;
+	    // Next, position the tooltip
 
-	      var newTop = top > offset ? top : offset;
-	      element.style.top = newTop;
-	      element.style.bottom = newTop + elementHeight > heightLimit ? offset : null;
-	      element.style.height = newTop + elementHeight > heightLimit ? 'auto' : element.style.height;
+	    var _getPositions = getPositions(element, target, realAlignment, offset),
+	        top = _getPositions.top,
+	        left = _getPositions.left;
 
-	      var newLeft = left > offset ? left : offset;
-	      element.style.left = newLeft;
-	      element.style.right = newLeft + elementWidth > widthLimit ? offset : null;
-	      element.style.width = newLeft + elementWidth > widthLimit ? 'auto' : element.style.width;
+	    var heightLimit = self.innerHeight - offset;
+	    var widthLimit = self.innerWidth - offset;
 
-	      // Finnaly, position the arrow div within the tooltip
-	      Array.from(element.children).slice(0, 2).map(function (x, i) {
-	        return positionArrow(x, target, realAlignment, offset, !!i);
-	      });
-	    }();
+	    var newTop = top > offset ? top : offset;
+	    element.style.top = newTop;
+	    element.style.bottom = newTop + elementHeight > heightLimit ? offset : null;
+	    element.style.height = newTop + elementHeight > heightLimit ? 'auto' : element.style.height;
 
-	    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	    var newLeft = left > offset ? left : offset;
+	    element.style.left = newLeft;
+	    element.style.right = newLeft + elementWidth > widthLimit ? offset : null;
+	    element.style.width = newLeft + elementWidth > widthLimit ? 'auto' : element.style.width;
+
+	    // Finnaly, position the arrow div within the tooltip
+	    Array.from(element.children).slice(0, 2).map(function (x, i) {
+	      return positionArrow(x, target, realAlignment, offset, !!i);
+	    });
 	  }
 	};
 
@@ -264,12 +249,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    element.style.height = 0;
 	    element.style.zIndex = 1001;
 
-	    var _getPositions2 = getPositions(element, target, alignment, offset);
-
-	    var top = _getPositions2.top;
-	    var left = _getPositions2.left;
-	    var marginTop = _getPositions2.marginTop;
-	    var marginLeft = _getPositions2.marginLeft;
+	    var _getPositions2 = getPositions(element, target, alignment, offset),
+	        top = _getPositions2.top,
+	        left = _getPositions2.left,
+	        marginTop = _getPositions2.marginTop,
+	        marginLeft = _getPositions2.marginLeft;
 
 	    var size = inner ? 7 : 8;
 	    var arrowSides = size + 'px solid transparent';
@@ -335,20 +319,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function _Tooltip() {
 	    _classCallCheck(this, _Tooltip);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(_Tooltip).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (_Tooltip.__proto__ || Object.getPrototypeOf(_Tooltip)).apply(this, arguments));
 	  }
 
 	  _createClass(_Tooltip, [{
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var target = _props.target;
-	      var show = _props.show;
-	      var alignment = _props.alignment;
-	      var offset = _props.offset;
-	      var children = _props.children;
-	      var className = _props.className;
-	      var onToggleTooltip = _props.onToggleTooltip;
+	      var _props = this.props,
+	          target = _props.target,
+	          show = _props.show,
+	          alignment = _props.alignment,
+	          offset = _props.offset,
+	          children = _props.children,
+	          className = _props.className,
+	          onToggleTooltip = _props.onToggleTooltip;
 
 	      var realAlignment = alignment;
 
@@ -395,15 +379,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  offset: DEFAULT_OFFSET,
 	  className: ''
 	};
-	;
 
 	var _TooltipTarget = exports._TooltipTarget = function (_React$Component2) {
 	  _inherits(_TooltipTarget, _React$Component2);
 
 	  function _TooltipTarget() {
-	    var _Object$getPrototypeO;
+	    var _ref;
 
-	    var _temp, _this2, _ret2;
+	    var _temp, _this2, _ret;
 
 	    _classCallCheck(this, _TooltipTarget);
 
@@ -411,13 +394,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret2 = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_TooltipTarget)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.handleOpenTooltip = function (e) {
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_ref = _TooltipTarget.__proto__ || Object.getPrototypeOf(_TooltipTarget)).call.apply(_ref, [this].concat(args))), _this2), _this2.handleOpenTooltip = function (e) {
 	      e.stopPropagation();
 	      e.nativeEvent.stopImmediatePropagation();
 	      _this2.props.onToggleTooltip(e.currentTarget);
 	    }, _this2.handleCloseTooltip = function (e) {
 	      _this2.props.onToggleTooltip(null);
-	    }, _temp), _possibleConstructorReturn(_this2, _ret2);
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
 	  }
 
 	  _createClass(_TooltipTarget, [{
@@ -438,24 +421,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onClick: this.handleOpenTooltip
 	        };
 	      } else {
-	        var _ret3 = function () {
-	          var keepOpen = false;
+	        var keepOpen = false;
 
-	          return {
-	            v: {
-	              onMouseEnter: _this3.handleOpenTooltip,
-	              onMouseLeave: function onMouseLeave(e) {
-	                if (!keepOpen) _this3.handleCloseTooltip(e);
-	              },
-	              onClick: function onClick(e) {
-	                keepOpen = true;
-	                _this3.handleOpenTooltip(e);
-	              }
-	            }
-	          };
-	        }();
-
-	        if ((typeof _ret3 === 'undefined' ? 'undefined' : _typeof(_ret3)) === "object") return _ret3.v;
+	        return {
+	          onMouseEnter: this.handleOpenTooltip,
+	          onMouseLeave: function onMouseLeave(e) {
+	            if (!keepOpen) _this3.handleCloseTooltip(e);
+	          },
+	          onClick: function onClick(e) {
+	            keepOpen = true;
+	            _this3.handleOpenTooltip(e);
+	          }
+	        };
 	      }
 	    }
 	  }, {
@@ -490,9 +467,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _inherits(_TooltipShutter, _React$Component3);
 
 	  function _TooltipShutter() {
-	    var _Object$getPrototypeO2;
+	    var _ref2;
 
-	    var _temp2, _this4, _ret4;
+	    var _temp2, _this4, _ret2;
 
 	    _classCallCheck(this, _TooltipShutter);
 
@@ -500,11 +477,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      args[_key2] = arguments[_key2];
 	    }
 
-	    return _ret4 = (_temp2 = (_this4 = _possibleConstructorReturn(this, (_Object$getPrototypeO2 = Object.getPrototypeOf(_TooltipShutter)).call.apply(_Object$getPrototypeO2, [this].concat(args))), _this4), _this4.handleClick = function (e) {
+	    return _ret2 = (_temp2 = (_this4 = _possibleConstructorReturn(this, (_ref2 = _TooltipShutter.__proto__ || Object.getPrototypeOf(_TooltipShutter)).call.apply(_ref2, [this].concat(args))), _this4), _this4.handleClick = function (e) {
 	      if (_this4.props.tooltipId) {
 	        _this4.props.onToggleTooltip(null);
 	      }
-	    }, _temp2), _possibleConstructorReturn(_this4, _ret4);
+	    }, _temp2), _possibleConstructorReturn(_this4, _ret2);
 	  }
 
 	  _createClass(_TooltipShutter, [{
@@ -566,36 +543,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var TooltipShutter = exports.TooltipShutter = (0, _reactRedux.connect)(watcherSelector, targetDispatcher)(_TooltipShutter);
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	module.exports = require("prop-types");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react");
 
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react-redux");
 
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
 
 	module.exports = require("reselect");
 
-/***/ },
-/* 4 */,
+/***/ }),
 /* 5 */,
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */
-/***/ function(module, exports) {
+/* 9 */,
+/* 10 */
+/***/ (function(module, exports) {
 
 	module.exports = require("lodash/object");
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

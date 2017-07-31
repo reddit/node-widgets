@@ -7,7 +7,7 @@
 		exports["reducer.js"] = factory(require("./tooltip.js"), require("./modal.js"), require("./scroller.js"));
 	else
 		root["reducer.js"] = factory(root["./tooltip.js"], root["./modal.js"], root["./scroller.js"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -62,11 +62,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _tooltip = __webpack_require__(4);
+	var _tooltip = __webpack_require__(5);
 
-	var _modal = __webpack_require__(5);
+	var _modal = __webpack_require__(6);
 
-	var _scroller = __webpack_require__(6);
+	var _scroller = __webpack_require__(7);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -82,15 +82,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? DEFAULT : arguments[0];
-	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT;
+	  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  switch (action.type) {
 	    case _tooltip.TOGGLE_TOOLTIP:
 	      {
-	        var _action$payload = action.payload;
-	        var tooltipId = _action$payload.tooltipId;
-	        var target = _action$payload.target;
+	        var _action$payload = action.payload,
+	            tooltipId = _action$payload.tooltipId,
+	            target = _action$payload.target;
 
 
 	        return tooltipId && target ? _extends({}, state, {
@@ -113,9 +113,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    case _scroller.SAVE_SCROLL_POSITION:
 	      {
-	        var _action$payload2 = action.payload;
-	        var _id = _action$payload2.id;
-	        var scrollPosition = _action$payload2.scrollPosition;
+	        var _action$payload2 = action.payload,
+	            _id = _action$payload2.id,
+	            scrollPosition = _action$payload2.scrollPosition;
 
 
 	        return _extends({}, state, {
@@ -127,28 +127,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-/***/ },
+/***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */
-/***/ function(module, exports) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
-
-/***/ },
+/* 4 */,
 /* 5 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 
-/***/ }
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+
+/***/ })
 /******/ ])
 });
 ;

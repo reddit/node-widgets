@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
+		module.exports = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-redux", "reselect", "raf", "lodash/function"], factory);
+		define(["prop-types", "react", "react-redux", "reselect", "raf", "lodash/function"], factory);
 	else if(typeof exports === 'object')
-		exports["scroller.js"] = factory(require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
+		exports["scroller.js"] = factory(require("prop-types"), require("react"), require("react-redux"), require("reselect"), require("raf"), require("lodash/function"));
 	else
-		root["scroller.js"] = factory(root["react"], root["react-redux"], root["reselect"], root["raf"], root["lodash/function"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_8__) {
+		root["scroller.js"] = factory(root["prop-types"], root["react"], root["react-redux"], root["reselect"], root["raf"], root["lodash/function"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -65,19 +65,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _react = __webpack_require__(1);
+	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _raf = __webpack_require__(7);
+	var _propTypes = __webpack_require__(1);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	var _raf = __webpack_require__(8);
 
 	var _raf2 = _interopRequireDefault(_raf);
 
-	var _reactRedux = __webpack_require__(2);
+	var _reactRedux = __webpack_require__(3);
 
-	var _reselect = __webpack_require__(3);
+	var _reselect = __webpack_require__(4);
 
-	var _function = __webpack_require__(8);
+	var _function = __webpack_require__(9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -89,7 +93,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var T = _react2.default.PropTypes;
+	var T = _propTypes2.default;
 
 	var STYLE = {
 	  position: 'relative',
@@ -105,7 +109,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Scroller(props) {
 	    _classCallCheck(this, Scroller);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Scroller).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Scroller.__proto__ || Object.getPrototypeOf(Scroller)).call(this, props));
 
 	    _this._resetValues = function () {
 	      _this.setState({
@@ -118,9 +122,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _this.resetValues = (0, _function.debounce)(_this._resetValues, 250);
 
 	    _this.recordScrollPosition = function () {
-	      var _this$props = _this.props;
-	      var id = _this$props.id;
-	      var onSaveScrollPosition = _this$props.onSaveScrollPosition;
+	      var _this$props = _this.props,
+	          id = _this$props.id,
+	          onSaveScrollPosition = _this$props.onSaveScrollPosition;
 	      var currentScrollPosition = _this.state.currentScrollPosition;
 
 	      onSaveScrollPosition(currentScrollPosition);
@@ -135,15 +139,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.setItem = function (item, key) {
-	      var _this$state = _this.state;
-	      var childHeights = _this$state.childHeights;
-	      var childPositions = _this$state.childPositions;
+	      var _this$state = _this.state,
+	          childHeights = _this$state.childHeights,
+	          childPositions = _this$state.childPositions;
 
 
 	      if (item) {
 	        if (!childHeights[key]) {
-	          var offsetTop = item.offsetTop;
-	          var clientHeight = item.clientHeight;
+	          var offsetTop = item.offsetTop,
+	              clientHeight = item.clientHeight;
 
 
 	          _this.setState({
@@ -155,11 +159,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    _this.handleScroll = function (e) {
-	      var _this$props2 = _this.props;
-	      var buffer = _this$props2.buffer;
-	      var loadMargin = _this$props2.loadMargin;
-	      var onLoadMore = _this$props2.onLoadMore;
-	      var children = _this$props2.children;
+	      var _this$props2 = _this.props,
+	          buffer = _this$props2.buffer,
+	          loadMargin = _this$props2.loadMargin,
+	          onLoadMore = _this$props2.onLoadMore,
+	          children = _this$props2.children;
 
 	      var scrollTop = e.currentTarget.scrollTop;
 	      var containerHeight = e.currentTarget.clientHeight;
@@ -246,9 +250,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _this2 = this;
 
 	      var children = this.props.children;
-	      var _state = this.state;
-	      var childrenToHide = _state.childrenToHide;
-	      var childHeights = _state.childHeights;
+	      var _state = this.state,
+	          childrenToHide = _state.childrenToHide,
+	          childHeights = _state.childHeights;
 
 	      var renderableChildren = children.filter(function (child) {
 	        return !childrenToHide[child.key];
@@ -351,40 +355,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = (0, _reactRedux.connect)(selector, dispatcher)(Scroller);
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
+
+	module.exports = require("prop-types");
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react");
 
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
 
 	module.exports = require("react-redux");
 
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
 
 	module.exports = require("reselect");
 
-/***/ },
-/* 4 */,
+/***/ }),
 /* 5 */,
 /* 6 */,
-/* 7 */
-/***/ function(module, exports) {
+/* 7 */,
+/* 8 */
+/***/ (function(module, exports) {
 
 	module.exports = require("raf");
 
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
 
 	module.exports = require("lodash/function");
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;
